@@ -1,0 +1,23 @@
+_BASE_: Base-PanopticDeepLab-OS16.yaml
+MODEL:
+  WEIGHTS: "./pretrained_model/panoptic_deeplab_R_52_os16_mg124_poly_90k_bs32.pkl"
+  PIXEL_MEAN: [123.675, 116.280, 103.530]
+  PIXEL_STD: [58.395, 57.120, 57.375]
+  BACKBONE:
+    NAME: "build_resnet_deeplab_backbone"
+  RESNETS:
+    DEPTH: 50
+    NORM: "SyncBN"
+    RES5_MULTI_GRID: [1, 2, 4]
+    STEM_TYPE: "deeplab"
+    STEM_OUT_CHANNELS: 128
+    STRIDE_IN_1X1: False
+SOLVER:
+  MAX_ITER: 90000
+  BASE_LR: 2.5e-3
+INPUT:
+  FORMAT: "RGB"
+  CROP:
+    SIZE: (512, 1024)
+OUTPUT_DIR: './logs/cs_R52_bs2'
+
